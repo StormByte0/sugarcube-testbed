@@ -1,0 +1,15 @@
+:: CustomMacroDemo [docs custom-macro]
+!Custom Macro Demo
+
+The macro <<code>><<emojify>><</code>> is defined in <<code>>story.js<</code>> via <<code>>Macro.add()<</code>>.
+
+<<emojify "smile">>
+<<emojify "heart">>
+<<emojify "star">>
+<<emojify "crown">>
+
+!!Passing expression arguments via backticks
+<<set _feeling to "happy">>
+<<emojify `(_feeling is "happy") ? "smile" : "frown"`>>
+
+<<return "Return to start">>

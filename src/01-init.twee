@@ -1,0 +1,34 @@
+:: StoryInit
+/%
+        StoryInit runs once before the story starts. No output is rendered.
+        Canonical place for: $variable init, <<cacheaudio>>, State.prng.init().
+%/
+
+<<set $playerName to "Alex">>
+<<set $playerLevel to 1>>
+<<set $playerHP to 100>>
+<<set $playerMaxHP to 100>>
+<<set $playerGold to 50>>
+<<set $inventory to ["Lantern", "Rope", "Iron Rations", "Health Potion"]>>
+<<set $stats to { strength: 10, dexterity: 12, intelligence: 14, charisma: 8 }>>
+<<set $flags to { metKing: false, hasKey: false, openedDoor: false, defeatedBoss: false }>>
+<<set $visitedRooms to []>>
+<<set $questLog to []>>
+<<set $npcs to new Map([
+        ["bard", { name: "Lila", mood: 5 }],
+        ["merchant", { name: "Gorin", mood: 3 }],
+        ["fisherman", { name: "Old Pete", mood: 2 }]
+])>>
+
+<<set _bootTime to now()>>
+
+/% Audio tracks are cached once at startup. %/
+<<cacheaudio "click" "audio/click.mp3">>
+<<cacheaudio "ambient" "audio/ambient.mp3">>
+<<cacheaudio "battle" "audio/battle.mp3">>
+
+/% Seed the PRNG so saves are reproducible. %/
+<<run State.prng.init("seed-linter-testbed-001")>>
+
+/% Initialize persistent metadata (survives restart). %/
+<<run State.metadata.set("playCount", (State.metadata.get("playCount") || 0) + 1)>>

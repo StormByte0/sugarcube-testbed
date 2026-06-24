@@ -1,0 +1,152 @@
+:: EdgeCases [docs edge-cases]
+/%
+        Deliberately exercises unusual / tricky SugarCube syntax for linter coverage.
+        All of these are VALID SugarCube — they should compile and render without error.
+%/
+!Edge Cases & Tricky Syntax
+
+This passage exercises unusual-but-valid SugarCube syntax that linters commonly
+mis-parse. Each section is annotated with what feature it tests.
+
+!!Naked variable inside HTML attribute
+<div class="player-card" data-name="$playerName" data-level="$playerLevel">
+        Player: $playerName (Lvl $playerLevel)
+</div>
+
+!!Backtick expression as macro argument
+<<set _cond to true>>
+<<set _val to 42>>
+<<print `(_cond ? "yes" : "no") + " — value is " + _val`>>
+<<link `"Visit " + (def _target ? _target : "Time")` "Time">><</link>>
+
+!!Chained method calls on SugarCube-extended types
+<<= $inventory.toShuffled().first()>>
+<<= "hello world".toUpperFirst().count("o")>>
+<<= (15).clamp(0, 10).toString()>>
+
+!!Nested {{{<<if>>}}} / {{{<<for>>}}} (3 levels deep)
+<<for _i to 0; _i lt 3; _i++>>
+<<for _j to 0; _j lt 3; _j++>>
+<<if _i is _j>>
+        [diag _i]
+<<elseif _i gt _j>>
+        [lower _i-_j]
+<<else>>
+        [upper _i-_j]
+<</if>>
+<</for>>
+<</for>>
+
+!!Range {{{<<for>>}}} with index AND value over a Map
+<<set _wordCounts to new Map([["apple", 5], ["banana", 3], ["cherry", 8]])>>
+<<for _key, _count range _wordCounts>>
+* _key: _count
+<</for>>
+
+!!Ternary inside {{{<<set>>}}}
+<<set _status to ($playerHP gte 50) ? "healthy" : "wounded">>
+/%
+        NOTE: SugarCube backtick expressions are NOT JavaScript template literals.
+        Backticks in TwineScript denote an inline expression argument — the content
+        is evaluated as TwineScript/JS code, not as a JS template string.
+        So `${$playerHP}` does NOT interpolate; you must use string concatenation.
+%/
+<<set _label to `"HP: " + $playerHP + "/" + $playerMaxHP + " (" + _status + ")"`>>
+_label
+
+!!{{{<<silently>>}}} vs {{{<<silent>>}}}
+<<silently>>
+        <<set _silentVar to "set inside silently">>
+<</silently>>
+<<silent>>
+        <<set _silentVar2 to "set inside silent">>
+<</silent>>
+Silent blocks produced no output but set: _silentVar, _silentVar2
+
+!!Mixed comment styles in one passage
+/* C-style block comment — valid in TwineScript */
+/% TiddlyWiki comment — the canonical SugarCube comment %/
+<!-- HTML comment — also valid, passed through to output -->
+
+!!Line continuation with backslash
+This sentence \
+is broken across \
+several lines \
+but renders as one.
+
+!!Image markup variants
+[img[images/test.png]]
+[img[Alt text|images/test.png]]
+[img[Alt text|images/test.png][Time]]
+[img[images/test.png][Time]]
+
+!!HTML escape via {{{<<->>}}} (escaped print)
+/%
+        NOTE: When the string passed to <<->> contains literal <<...>> syntax, SugarCube's
+        macro parser may mis-tokenize the inner << as a nested macro call. To safely
+        print a string containing <<, either:
+          - Use a backtick expression argument (evaluated as JS), or
+          - Build the string from char codes / concatenation.
+        Here we use backtick expressions to avoid the parser ambiguity.
+%/
+<<- `"<" + "script>alert('not executed')</" + "script>"`>>
+<<- `"<<" + "set $foo to 1>>"`>>
+
+!!Template inside expression
+<<set _greeting to `?greeting, world!`>>
+/% Templates (?name) only work in passage text, not inside backtick expressions.
+   This will literally print "?greeting, world!" %/
+
+!!{{{<<capture>>}}} inside {{{<<link>>}}} (closure over loop variable)
+/%
+        NOTE: SugarCube backtick expressions are NOT JS template literals.
+        `Click for index ${_i}` would be parsed as JS code: `Click for index ${_i}`
+        which fails (Click is undefined, and ${} isn't valid outside a template literal).
+        Use string concatenation instead: `"Click for index " + _i`
+%/
+<<for _i to 0; _i lt 3; _i++>>
+        <<capture _i>>
+                <<link `"Click for index " + _i`>>
+                        <<replace "#capture-out">>You clicked index _i<</replace>>
+                <</link>>
+        <</capture>>
+<</for>>
+@@#capture-out;@@
+
+!!Deeply nested {{{<<linkreplace>>}}}
+<<linkreplace "outer">>outer
+        <<linkreplace "middle">>middle
+                <<linkreplace "inner">>innermost content<</linkreplace>>
+        <</linkreplace>>
+<</linkreplace>>
+
+!!{{{<<switch>>}}} with multiple case values
+<<switch $playerClass>>
+<<case "warrior">>You wield steel.
+<<case "mage" "wizard">>You wield arcane power.
+<<case "rogue">>You wield shadows.
+<<default>>You wield whatever comes to hand.
+<</switch>>
+
+!!Empty {{{<<if>>}}} body (valid — renders nothing)
+<<if false>><</if>>
+
+!!{{{<<run>>}}} with side-effect-only expression
+<<run $inventory.pushUnique("EdgeCaseItem")>>
+
+!!Number formatting via SugarCube methods
+<<= (1234.5678).toFixed(2)>>
+/%
+        NOTE: toUpperFirst() is a SugarCube String.prototype extension — Numbers
+        don't have it. Convert to String first with .toString() or String().
+%/
+<<= String(0.5).toUpperFirst()>>
+<<= (42).toString().toUpperFirst()>>
+
+!!String with embedded quotes
+<<set _quote to "She said \"hello\" to him">>
+<<set _single to 'It\'s a test'>>
+<<= _quote>>
+<<= _single>>
+
+<<return "Return to start">>

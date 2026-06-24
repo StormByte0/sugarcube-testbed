@@ -1,0 +1,39 @@
+:: StoryScriptTagDemo [script]
+/*
+        Passages tagged [script] are JavaScript. Loaded at startup.
+        In Tweego you would normally use a .js file instead, but this
+        demonstrates the [script] tag.
+
+        IMPORTANT: Inside a [script] passage you MUST use JavaScript
+        comments only (slash-slash for lines, slash-star ... star-slash
+        for blocks). Do NOT use TiddlyWiki markup comments like
+        slash-percent ... percent-slash, because the passage content is
+        evaluated as JavaScript and slash-percent is not valid JS syntax
+        (the tokenizer tries to parse it as the start of a regex literal
+        and fails with "Invalid regular expression: missing /").
+*/
+console.log("[StoryScriptTagDemo] This script-tagged passage ran at startup.");
+
+// Demonstrate that we have access to the SugarCube API from a [script] passage
+if (typeof setup !== "undefined") {
+        console.log("[StoryScriptTagDemo] setup.constants:", setup.constants);
+}
+
+// Add a custom function to setup
+setup.greetFromScript = function (name) {
+        return "Hi " + name + " from a [script]-tagged passage!";
+};
+
+// Register a sugar event listener from script-tagged passage
+$(document).one(":storyready", function () {
+        console.log("[StoryScriptTagDemo] Story is ready!");
+});
+
+:: ScriptTagPassage [docs script-tag]
+!Script-Tagged Passage Demo
+
+The <<code>>StoryScriptTagDemo<</code>> passage in this file is tagged <<code>>[script]<</code>>. Its contents are pure JavaScript, executed at startup. In a real Tweego project you would normally put this in a <<code>>.js<</code>> file (see <<code>>story.js<</code>>), but the <<code>>[script]<</code>> tag is supported for compatibility with Twine 1 / Twee v1 workflows.
+
+<<run console.log("Greet:", setup.greetFromScript($playerName))>>
+
+<<return "Return to start">>

@@ -1,0 +1,49 @@
+:: Start [town hub]
+!Welcome to the SugarCube Linter Testbed
+
+Hello, $playerName! This project exercises the bulk of the SugarCube 2 feature set so that linters can be tested against real syntax. Pick a category to explore:
+
+!!Macro groups
+* [[Variables & scripting|VariablesMacros]]
+* [[Control flow|ControlMacros]]
+* [[Display & content|DisplayMacros]]
+* [[Interactive macros|InteractiveMacros]]
+* [[Navigation|NavigationMacros]]
+* [[DOM manipulation|DomMacros]]
+* [[Misc (timed/repeat/done)|MiscMacros]]
+
+!!Markup & operators
+* [[Markup reference|MarkupReference]]
+* [[TwineScript operators|OperatorsReference]]
+* [[Links & navigation reference|LinksDemo]]
+* [[Templates reference|TemplatesDemo]]
+
+!!JavaScript integration
+* [[SugarCube JS API|JsApiReference]]
+* [[Custom macro demo|CustomMacroDemo]]
+* [[Widget showcase|WidgetShowcase]]
+
+!!Special passages & tags
+* [[nobr-tagged passage|NobrPassage]]
+* [[Script-tagged passage demo|ScriptTagPassage]]
+* [[Stylesheet-tagged passage demo|StylesheetTagPassage]]
+
+!!Story areas
+* [[Town Square|TownSquare]]
+* [[Forest Edge|ForestEdge]] [forest]
+* [[Dungeon Entrance|DungeonEntrance]] [dungeon]
+
+!!Playable story (model SugarCube narrative)
+* [[Begin the story|StoryPrologue]]
+* [[Jump to combat demo|CombatEncounter]]
+* [[Edge cases & tricky syntax|EdgeCases]]
+
+<<if $playerHP < $playerMaxHP>>
+        @@.warning;You are wounded.@@ Consider visiting the [[Healer|Healer]].
+<<else>>
+        You are at full health.
+<</if>>
+
+<<button "Reset HP">><<set $playerHP to $playerMaxHP>><<replace ".hud-hp">>HP: $playerHP/$playerMaxHP<</replace>><</button>>
+
+<<link "Show current time" "Time">><</link>>

@@ -1,0 +1,233 @@
+:: StoryPrologue [story narrative]
+/%
+        A real game-like narrative passage — not a feature demo.
+        Exercises: <<set>>, <<if>>, <<switch>>, <<for>>, <<print>>, naked variables,
+        @@ styling, links with setters, backtick expressions, <<include>> of partials.
+%/
+<<set _intro to either(
+        "The rain has not stopped for three days.",
+        "A cold wind blows in from the moors.",
+        "Smoke rises from the chimney of the old inn.",
+        "The market square is empty at this hour."
+)>>
+
+!The Crossroads
+
+_intro You stand at a crossroads, $playerName. The road splits three ways here, and the signpost has long since rotted at the base. You can still make out faded letters:
+
+<<switch visited("StoryPrologue")>>
+<<case 1>>
+        @@.story-note;This is your first time here. The choices feel heavy.@@
+<<case 2 3>>
+        @@.story-note;You have been here before. The choices do not feel any lighter.@@
+<<default>>
+        @@.story-note;You have stood at this crossroads _many_ times now. The road knows your footprints.@@
+<</switch>>
+
+!!The three roads
+
+* [[The northern road — towards the mountains|MountainPass][$stats.dexterity += 1]]
+* [[The eastern road — towards the sea|CoastalRoad][$stats.charisma += 1]]
+* [[The southern road — towards the forest|ForestDeep][$stats.strength += 1]]
+
+<<if $playerLevel gte 5>>
+        @@.veteran-bonus;Your experience reveals a fourth, hidden path.@@
+        * [[The old smuggler's trail|SmugglersTrail]]
+<</if>>
+
+<<include "StoryPrologueStats">>
+
+:: StoryPrologueStats [story partial]
+/%
+        A partial passage — only ever included, never linked to directly.
+        Demonstrates: <<for>> over a generic object, naked variable interpolation,
+        backtick expression in <<print>>, ternary in expression context.
+%/
+@@.stat-summary;
+!!Current standing
+<<for _stat, _value range $stats>>
+* <<= _stat.toUpperFirst()>>: _value
+<</for>>
+Health: $playerHP / $playerMaxHP
+Gold: $playerGold
+Turns so far: <<= turns()>>
+@@
+
+:: MountainPass [story narrative mountain]
+!The Mountain Pass
+
+The air thins as you climb. Snow crunches underfoot. Somewhere above, an eagle cries.
+
+<<if $stats.dexterity lt 5>>
+        Your footing slips on a patch of ice. You lose your footing and tumble.
+        <<set $playerHP to Math.max(1, $playerHP - 15)>>
+        <<set $stats.dexterity += 1>> /% learn from the fall %/
+        @@.warning;You took 15 damage and learned to be more careful.@@
+<<else>>
+        Your footing is sure. You reach the summit without incident.
+        <<set $playerGold += 10>>
+        @@.reward;You find 10 gold pieces in a crevice.@@
+<</if>>
+
+!!Choices
+* [[Continue over the mountain|MountainSummit]]
+* [[Turn back|StoryPrologue]]
+* [[Rest here a while|MountainRest]]
+
+[[Return to the crossroads|StoryPrologue]]
+
+:: MountainSummit [story narrative mountain]
+!The Summit
+
+The world spreads out below you. You can see the forest, the sea, and the distant smoke of the town.
+
+<<set _view to `The wind is ${either("strong", "gentle", "biting")} at this height`>>
+_view
+
+<<if hasVisited("CoastalRoad")>>
+        You spot the coastal road you walked earlier, a pale scar along the cliff.
+<</if>>
+
+<<link "Take in the view">>
+        <<set _contemplation to random(1, 3)>>
+        <<switch _contemplation>>
+        <<case 1>>
+                <<replace "#summit-out">>You feel small against the sky.<</replace>>
+        <<case 2>>
+                <<replace "#summit-out">>You wonder what lies beyond the sea.<</replace>>
+        <<case 3>>
+                <<replace "#summit-out">>You resolve to be braver.<</replace>>
+                <<set $stats.charisma += 1>>
+        <</switch>>
+<</link>>
+@@#summit-out;@@
+
+[[Descend to the forest|ForestDeep]]
+[[Descend to the coast|CoastalRoad]]
+[[Return to the crossroads|StoryPrologue]]
+
+:: MountainRest [story narrative mountain]
+!A Moment's Rest
+
+You find a sheltered hollow behind a boulder and make camp.
+
+<<set _healed to Math.min(20, $playerMaxHP - $playerHP)>>
+<<set $playerHP to $playerHP + _healed>>
+
+@@.reward;You recover _healed HP.@@
+
+<<timed 2s>>
+@@.timed-out;You wake refreshed. The sun has moved.@@
+<<next 1s>>
+[[Continue your journey|StoryPrologue]]
+<</timed>>
+
+:: CoastalRoad [story narrative coast]
+!The Coastal Road
+
+Salt spray mists your face. Gulls wheel overhead. The road hugs the cliff, narrowing to a ledge.
+
+<<if $stats.charisma gte 5>>
+        A fisherman offers you passage on his boat.
+        * [[Accept the offer|BoatTrip]]
+        * [[Decline and walk the ledge|CliffWalk]]
+<<else>>
+        The fisherman ignores you. You'll have to walk the ledge.
+        * [[Walk the narrow ledge|CliffWalk]]
+<</if>>
+
+* [[Return to the crossroads|StoryPrologue]]
+
+:: CliffWalk [story narrative coast]
+!The Narrow Ledge
+
+You edge along the cliff, back to the stone. The drop is dizzying.
+
+<<set _luck to random(1, 20)>>
+<<if _luck gte 15>>
+        @@.reward;You find a seashell worth 5 gold.@@
+        <<set $playerGold += 5>>
+<<elseif _luck lte 3>>
+        @@.warning;You slip! You barely catch yourself, but lose 10 HP.@@
+        <<set $playerHP to Math.max(1, $playerHP - 10)>>
+<<else>>
+        You make it across safely.
+<</if>>
+
+[[Continue along the coast|CoastalRoad]]
+[[Return to the crossroads|StoryPrologue]]
+
+:: BoatTrip [story narrative coast]
+!The Fisherman's Boat
+
+The old fisherman rows in silence. After a time, he speaks.
+
+"You're not from here, are you?"
+
+<<set _mood to $npcs.get("fisherman")?.mood ?? 0>>
+<<if _mood gte 3>>
+        "I'll take you further, for a friend."
+        * [[Accept|HiddenCove]]
+<<else>>
+        "I'll take you back, for free."
+<</if>>
+
+* [[Return to the coast|CoastalRoad]]
+
+:: HiddenCove [story narrative coast secret]
+!The Hidden Cove
+
+The fisherman beaches his boat in a cove you would never have found alone.
+
+@@.reward;You find a chest containing 25 gold and an emerald.@@
+<<set $playerGold += 25>>
+<<run $inventory.pushUnique("Emerald")>>
+
+[[Return to the crossroads|StoryPrologue]]
+
+:: SmugglersTrail [story narrative secret]
+/%
+        Hidden passage — only accessible when $playerLevel >= 5.
+        Tests: conditional link visibility, <<audio>> macro, complex state mutation.
+%/
+!The Smuggler's Trail
+
+You push through the undergrowth and find a well-worn path. Someone has been here recently.
+
+<<audio "ambient" play loop>>
+
+The trail leads to an abandoned camp. A campfire still smolders.
+
+!!Search the camp
+<<link "Search the tents">>
+        <<set _find to either("map", "gold", "nothing", "letter")>>
+        <<switch _find>>
+        <<case "map">>
+                <<set $flags.foundMap to true>>
+                <<replace "#search-out">>You find a crude map of the region. It marks a location in the deep forest.<</replace>>
+        <<case "gold">>
+                <<set _amt to random(5, 15)>>
+                <<set $playerGold += _amt>>
+                <<replace "#search-out">>You find _amt gold pieces hidden in a bedroll.<</replace>>
+        <<case "letter">>
+                <<set $flags.foundLetter to true>>
+                <<replace "#search-out">>You find a half-burned letter. It mentions a meeting at the dungeon entrance.<</replace>>
+        <<case "nothing">>
+                <<replace "#search-out">>The tents are empty. Whoever was here left in a hurry.<</replace>>
+        <</switch>>
+<</link>>
+
+<<link "Search the fire pit">>
+        <<if $flags.foundLetter>>
+                <<replace "#search-out">>You find a wax seal in the ashes — a crest you don't recognize.<</replace>>
+                <<set $flags.foundSeal to true>>
+        <<else>>
+                <<replace "#search-out">>Just ashes. Nothing of interest.<</replace>>
+        <</if>>
+<</link>>
+
+@@#search-out;@@
+
+<<audio "ambient" stop>>
+
+[[Return to the crossroads|StoryPrologue]]

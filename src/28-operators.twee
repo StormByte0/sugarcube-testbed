@@ -1,0 +1,109 @@
+:: OperatorsReference [docs operators]
+!TwineScript Operators
+
+!! Assignment
+<<set $a to 5>>         <<code>>to<</code>>
+<<set $a = 6>>          JS <<code>>=<</code>>
+<<set $a += 1>>         <<code>>+=<</code>>
+<<set $a -= 1>>         <<code>>-=<</code>>
+<<set $a *= 2>>         <<code>>*=<</code>>
+<<set $a /= 2>>         <<code>>/=<</code>>
+<<set $a %= 3>>         <<code>>%=<</code>>
+<<set $a++>>            <<code>>++<</code>> (post-increment)
+<<set ++$a>>            <<code>>++<</code>> (pre-increment)
+<<set $a-->>            <<code>>--<</code>>
+
+!! Comparison (TwineScript)
+/% Each operator is shown as a literal code sample using the {{{...}}} builtin
+   inline-code markup, so the <<if>> tags are NOT invoked. The custom <<code>>
+   macro would also work; we use {{{...}}} here for linter coverage of both. %/
+{{{<<if $a is 5>>}}}          {{{is}}} (strict equal)
+{{{<<if $a isnot 5>>}}}       {{{isnot}}}
+{{{<<if $a eq 5>>}}}          {{{eq}}} (loose)
+{{{<<if $a neq 5>>}}}         {{{neq}}}
+{{{<<if $a gt 5>>}}}          {{{gt}}}
+{{{<<if $a gte 5>>}}}         {{{gte}}}
+{{{<<if $a lt 5>>}}}          {{{lt}}}
+{{{<<if $a lte 5>>}}}         {{{lte}}}
+
+!! Comparison (JS — also valid inside {{{<<if>>}}})
+{{{<<if $a === 5>>}}}
+{{{<<if $a !== 5>>}}}
+{{{<<if $a > 5>>}}}
+{{{<<if $a >= 5>>}}}
+{{{<<if $a < 5>>}}}
+{{{<<if $a <= 5>>}}}
+
+!! Logical
+{{{<<if $a and $b>>}}}        {{{and}}}
+{{{<<if $a or $b>>}}}         {{{or}}}
+{{{<<if not $a>>}}}           {{{not}}}
+{{{<<if $a && $b>>}}}         JS {{{&&}}}
+{{{<<if $a || $b>>}}}         JS {{{||}}}
+{{{<<if !$a>>}}}              JS {{{!}}}
+
+!! Defined checks
+{{{<<if def $a>>}}}           {{{def}}} (defined)
+{{{<<if ndef $missing>>}}}    {{{ndef}}} (not defined)
+
+!! Arithmetic
+<<= 5 + 2>>             addition
+<<= 5 - 2>>             subtraction
+<<= 5 * 2>>             multiplication
+<<= 5 / 2>>             division
+<<= 5 % 2>>             modulo
+<<= 5 ** 2>>            exponent (JS)
+<<= Math.PI>>           constants
+
+!! String concatenation
+<<= "Hello, " + $playerName>>
+<<set $greeting to "Hi, " + $playerName>>
+
+!! Member access
+<<= $inventory[0]>>
+<<= $stats.strength>>
+<<= $stats["dexterity"]>>
+<<= $npcs.get("bard").name>>
+
+!! Array methods (SugarCube extensions)
+<<= $inventory.length>>
+<<= $inventory.first()>>
+<<= $inventory.last()>>
+<<= $inventory.includes("Rope")>>
+<<= $inventory.includesAll(["Rope", "Lantern"])>>
+<<= $inventory.includesAny(["Torch", "Rope"])>>
+<<run $inventory.pushUnique("Map")>>
+<<run $inventory.deleteWith(i => i === "Rope")>>
+<<= $inventory.count()>>
+<<= $inventory.toShuffled()>>
+
+!! String methods (SugarCube extensions)
+<<= "hello world".toUpperFirst()>>
+<<= "hello world".count("l")>>
+<<= "hello world".includes("wor")>>
+
+!! Number method (SugarCube extension)
+<<= (15).clamp(0, 10)>>
+
+!! Ternary (JS — works in expressions)
+<<= $playerHP > 50 ? "Healthy" : "Wounded">>
+
+!! Built-in functions
+<<= either("A", "B", "C")>>
+<<= random(1, 6)>>
+<<= randomFloat(0, 1)>>
+<<= visited("Start")>>
+<<= visitedTags("town")>>
+<<= hasVisited("Start")>>
+<<= lastVisited("Start")>>
+<<= passage()>>
+<<= previous()>>
+<<= tags()>>
+<<= turns()>>
+<<= time()>>
+<<= clone($stats)>>
+<<run memorize("ach1", true)>>
+<<= recall("ach1", false)>>
+<<run forget("ach1")>>
+
+<<return "Return to start">>

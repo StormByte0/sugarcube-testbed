@@ -1,0 +1,26 @@
+:: VariablesMacros [docs variables]
+!Variables & Scripting Macros
+!! <<code>><<set>><</code>>, <<code>><<unset>><</code>>, <<code>><<capture>><</code>>, <<code>><<run>><</code>>
+
+<<set $playerGold to 50>>
+<<set $playerGold += 10>>
+<<set $inventory.pushUnique("Torch")>>
+<<set $stats.strength += 2>>
+<<set _tempBonus to 5>>
+
+<<run memorize("visitedVariablesMacros", true)>>
+
+Captured value demonstration:
+<<capture _tempBonus>>
+	<<link "Print captured _tempBonus">>
+		<<replace "#capture-out">>Captured: _tempBonus<</replace>>
+	<</link>>
+<</capture>>
+@@#capture-out;@@
+
+<<unset _tempBonus>>
+
+Current $playerGold: $playerGold
+Inventory length: <<run $inventory.length>>
+
+<<link "Return" "Start">><</link>>

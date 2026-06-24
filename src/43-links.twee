@@ -1,0 +1,86 @@
+:: LinksDemo [docs links]
+!Links & Navigation Reference
+
+A consolidated reference for every link form SugarCube supports.
+
+!!Simple links (markup)
+[[Time]]
+[[Go to the Time passage|Time]]
+
+!!Arrow separator forms
+Right-arrow form: Go to Time->Time
+Left-arrow form: Time<-Click here
+
+!!Links with setters
+[[Add 5 gold|Time][$playerGold += 5]]
+[[Take a torch|Time][$inventory.pushUnique("Torch")]]
+
+!!Image links
+[img[images/icon.png][Time]]
+[img[Tooltip text|images/icon.png][Time]]
+
+!!HTML anchor with data-passage / data-setter
+<a data-passage="Time" data-setter="$playerHP -= 5">Take damage and visit Time</a>
+
+!!<<code>><<link>><</code>> — text-only (no navigation)
+<<link "Click me — no navigation">>
+        <<set $flags.clickedPlainLink to true>>
+        <<replace "#plain-link-out">>Plain link clicked at <<= time()>>ms.<</replace>>
+<</link>>
+@@#plain-link-out;@@
+
+!!<<code>><<link>><</code>> — with target passage
+<<link "Visit Time via macro" "Time">><</link>>
+
+!!<<code>><<link>><</code>> — with body (setter + target)
+<<link "Take a potion and visit Time" "Time">>
+        <<set $playerHP to Math.min($playerMaxHP, $playerHP + 20)>>
+<</link>>
+
+!!<<code>><<link>><</code>> — with image as label
+<<link "[img[images/button.png]]" "Time">><</link>>
+
+!!<<code>><<link>><</code>> — backtick expression arg
+<<set _target to "Time">>
+<<link `"Visit " + _target` _target>><</link>>
+
+!!<<code>><<button>><</code>> — renders a <<code>><button><</code>> element
+<<button "Plain button">>
+        <<set $flags.clickedButton to true>>
+        <<replace "#plain-btn-out">>Button clicked.<</replace>>
+<</button>>
+@@#plain-btn-out;@@
+
+<<button "Button that navigates" "Time">><</button>>
+
+!!<<code>><<back>><</code>> — undo history
+<<back "Back one step">>
+<<back [[Back to Time.|Time]]>>
+
+!!<<code>><<return>><</code>> — forward to a previously visited passage
+<<return>>
+[[Return to start|Start]]
+
+!!<<code>><<goto>><</code>> — immediate forward (no input)
+/%
+        NOTE: <<link>> wikifies its text argument. If the text contains literal
+        <<macro>> syntax, those macros get invoked during wikification, which can
+        produce restricted interactive elements (<button>, <a>, etc.) and throw
+        "text content contains restricted elements". To show literal <<goto>> in
+        a link label, use string concatenation with escaped angle brackets, or
+        simply avoid <<>> in the label text.
+%/
+<<link "Trigger a goto immediately">>
+        <<goto "Time">>
+<</link>>
+
+!!<<code>><<actions>><</code>> — deprecated v2.37.0 (one-shot link list)
+<<actions "Time" "Start">>
+
+!!<<code>><<choice>><</code>> — deprecated v2.37.0 (one-shot choice)
+<<choice "Time" "Make a one-shot choice">>
+
+!!Visited-link class (only when Config.addVisitedLinkClass = true)
+Visit [[Time]] once, then look — it has the <<code>>.link-visited<</code>> class.
+
+<<return "Return to start">>

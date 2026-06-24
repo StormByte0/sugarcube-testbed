@@ -1,0 +1,64 @@
+:: Widgets [widget]
+/%
+	Passages tagged [widget] host <<widget>> definitions.
+	Loaded at startup. Cannot be navigated to directly.
+%/
+
+<<widget hello>>
+@@.widget-hello;Hello, _args[0]!@@
+<</widget>>
+
+<<widget statblock>>
+<<set _label to _args[0]>>
+<<set _value to _args[1]>>
+@@.stat-block;
+**_label**: _value
+@@
+<</widget>>
+
+<<widget quote container>>
+<blockquote class="widget-quote">_contents</blockquote>
+<</widget>>
+
+<<widget randomcolor>>
+<<set _colors to ["red", "green", "blue", "yellow", "purple"]>>
+<<= _colors.random()>>
+<</widget>>
+
+<<widget ifhasinv>>
+/% Demonstrates _args.full, _args.raw, and conditional logic inside a widget %/
+<<if $inventory.includes(_args[0])>>
+	You have _args[0].
+<<else>>
+	You do not have _args[0].
+<</if>>
+<</widget>>
+
+:: WidgetShowcase [docs widgets]
+!Widget Showcase
+
+Widgets are defined in the <<code>>Widgets<</code>> passage (tagged <<code>>[widget]<</code>>).
+
+!! <<code>><<widget hello>><</code>> (no args)
+<<hello "World">>
+<<hello $playerName>>
+
+!! <<code>><<widget statblock>><</code>> (positional args)
+<<statblock "Strength" $stats.strength>>
+<<statblock "Dexterity" $stats.dexterity>>
+<<statblock "Intelligence" $stats.intelligence>>
+
+!! <<code>><<widget quote container>><</code>> (container widget — uses <<code>>_contents<</code>>)
+<<quote>>
+To be, or not to be, that is the question.
+— William Shakespeare
+<</quote>>
+
+!! <<code>><<widget randomcolor>><</code>>
+Random color: <<randomcolor>>
+
+!! <<code>><<widget ifhasinv>><</code>>
+<<ifhasinv "Lantern">>
+<<ifhasinv "Dragon Scale">>
+
+<<return "Return to start">>

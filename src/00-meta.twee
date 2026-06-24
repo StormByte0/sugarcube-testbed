@@ -1,0 +1,28 @@
+:: StoryData
+{
+	"ifid": "D674C58C-DEFA-4F70-B7A2-27742230C0FC",
+	"format": "SugarCube",
+	"format-version": "2.37.0",
+	"start": "Start",
+	"zoom": 1,
+	"tag-colors": {
+		"forest": "#3a5a40",
+		"town": "#8a817c",
+		"dungeon": "#3d2c2e"
+	}
+}
+
+:: StoryTitle
+SugarCube Linter Testbed
+
+:: StoryDisplayTitle
+SugarCube Linter Testbed @@.version-badge;v2.37@@
+
+:: StorySubtitle
+A feature-coverage reference for the SugarCube 2 story format
+
+:: StoryAuthor
+Anonymous &lt;linter-test@example.com&gt;
+
+:: StoryBanner
+@@.story-banner;@@color:rebeccapurple;Sugar@@color:deeppink;Cube@@ @@.story-banner-sub;Linter Testbed@@

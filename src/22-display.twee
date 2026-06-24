@@ -1,0 +1,49 @@
+:: DisplayMacros [docs display]
+!Display & Content Macros
+
+!! <<code>><<print>><</code>>, <<code>><<=>><</code>>, <<code>><<->><</code>>
+<<print "Hello, " + $playerName>>
+<<= 2 + 2>>
+<<- "<b>Escaped</b> HTML shows literally">>
+
+!! <<code>><<include>><</code>>
+<<include "IncludedSnippet">>
+<<include "IncludedSnippet" "span">>
+
+!! <<code>><<nobr>><</code>>
+<<nobr>>
+This block collapses
+newlines into
+single spaces.
+<</nobr>>
+
+!! <<code>><<silent>><</code>>
+<<silent>>
+<<set _hiddenFlag to true>>
+<</silent>>
+(Silent block above produced no output.)
+
+!! <<code>><<type>><</code>>
+<<type 40ms>>This text types out like a typewriter.<</type>>
+
+<<type 20ms start 1s element "div" class "fancy-type" keep>>Delayed typewriter, kept on completion.<</type>>
+
+!! <<code>><<do>><</code>> / <<code>><<redo>><</code>> (v2.37.0)
+/%
+        <<do>> is a container macro (tags:null) that wraps content in a redo-targetable
+        element. Syntax: <<do [tag "name"] [element "name"]>>...<</do>>
+        <<redo>> re-renders the matching <<do tag "name">> block; it MUST be invoked from
+        inside a <<link>>, <<button>>, <<linkappend>>, <<linkprepend>>, or <<linkreplace>>.
+%/
+<<do tag "hp-block">>HP: $playerHP<<run $playerHP-->><</do>>
+
+<<link "Re-roll HP block">><<redo "hp-block">><</link>>
+
+<<link "Return" "Start">><</link>>
+
+:: IncludedSnippet [snippet]
+This text comes from another passage via <<code>><<include>><</code>>.
+
+:: Time
+The current time in passage is <<= time()>>ms.
+<<return "Go back">>

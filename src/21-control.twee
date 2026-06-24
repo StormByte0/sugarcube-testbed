@@ -1,0 +1,42 @@
+:: ControlMacros [docs control]
+!Control Flow Macros
+
+!! <<code>><<if>><</code>> / <<code>><<elseif>><</code>> / <<code>><<else>><</code>>
+<<if $playerLevel gte 10>>
+        Master-tier content.
+<<elseif $playerLevel gte 5>>
+        Journeyman-tier content.
+<<else>>
+        Novice-tier content.
+<</if>>
+
+!! <<code>><<switch>><</code>> / <<code>><<case>><</code>> / <<code>><<default>><</code>>
+<<switch $playerName>>
+<<case "Alex">>
+        Welcome back, Alex.
+<<case "Sam" "Jordan">>
+        A neutral name — nice.
+<<default>>
+        Unknown traveler.
+<</switch>>
+
+!! <<code>><<for>><</code>> (3-part form)
+<<for _i to 0; _i lt 5; _i++>>Slot _i: <<= _i * 10>>
+<</for>>
+
+!! <<code>><<for>><</code>> (range form over array)
+<<for _i, _item range $inventory>>_i: _item
+<</for>>
+
+!! <<code>><<for>><</code>> (range form over integer)
+<<for _n range 3>>Count _n
+<</for>>
+
+!! <<code>><<break>><</code>> and <<code>><<continue>><</code>>
+<<for _i to 0; _i lt 10; _i++>>
+        <<if _i is 3>><<continue>><</if>>
+        <<if _i gte 7>><<break>><</if>>
+        Slot: _i
+<</for>>
+
+<<link "Return" "Start">><</link>>

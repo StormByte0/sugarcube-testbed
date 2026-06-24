@@ -1,0 +1,116 @@
+:: CombatEncounter [story battle]
+/%
+        A small turn-based combat system using <<link>> + <<replace>>.
+        Demonstrates: nested <<link>> with state mutation, <<replace>> targeting,
+        conditional rendering, <<switch>> for enemy AI, HP/gold management.
+%/
+<<set _enemyName to either("Goblin", "Wolf", "Bandit", "Skeleton")>>
+<<set _enemyHP to random(15, 30)>>
+<<set _enemyMaxHP to _enemyHP>>
+<<set _enemyAtk to random(3, 8)>>
+<<set _playerAtk to $stats.strength + random(0, 3)>>
+<<set _turn to 1>>
+
+!Battle: $playerName vs _enemyName
+
+<div class="combat-arena">
+        <div class="combat-enemy">Enemy: _enemyName — HP: <<= _enemyHP>>/<<= _enemyMaxHP>></div>
+        <div class="combat-player">You: $playerName — HP: $playerHP/$playerMaxHP</div>
+</div>
+
+@@#combat-log;
+!!Turn _turn
+Choose your action:
+@@
+
+<<link "Attack">>
+        <<set _dmg to _playerAtk + random(-2, 2)>>
+        <<set _enemyHP to Math.max(0, _enemyHP - _dmg)>>
+        <<replace "#combat-log">>
+        !!Turn _turn
+        You hit _enemyName for _dmg damage.
+        <<if _enemyHP lte 0>>
+                @@.victory;_enemyName falls!@@
+                <<set _reward to random(5, 15)>>
+                <<set $playerGold += _reward>>
+                <<set $flags.defeatedBoss to true>>
+                You loot _reward gold.
+                [[Continue|StoryPrologue]]
+        <<else>>
+                <<include "EnemyTurn">>
+        <</if>>
+        @@
+        <</replace>>
+<</link>>
+
+<<link "Defend">>
+        <<set _defended to true>>
+        <<replace "#combat-log">>
+        !!Turn _turn
+        You raise your guard.
+        <<include "EnemyTurn">>
+        @@
+        <</replace>>
+<</link>>
+
+<<if $inventory.includes("Health Potion")>>
+        <<link "Use Health Potion">>
+                <<run $inventory.deleteWith(i => i === "Health Potion")>>
+                <<set _heal to Math.min(30, $playerMaxHP - $playerHP)>>
+                <<set $playerHP to $playerHP + _heal>>
+                <<replace "#combat-log">>
+                !!Turn _turn
+                You drink a Health Potion and recover _heal HP.
+                <<include "EnemyTurn">>
+                @@
+                <</replace>>
+        <</link>>
+<</if>>
+
+<<link "Flee">>
+        <<if random(1, 20) gte 10>>
+                <<replace "#combat-log">>
+                !!Turn _turn
+                You escape!
+                [[Return to the crossroads|StoryPrologue]]
+                @@
+                <</replace>>
+        <<else>>
+                <<set _fleeDmg to random(2, 6)>>
+                <<set $playerHP to Math.max(1, $playerHP - _fleeDmg)>>
+                <<replace "#combat-log">>
+                !!Turn _turn
+                You fail to escape and take _fleeDmg damage!
+                <<include "EnemyTurn">>
+                @@
+                <</replace>>
+        <</if>>
+<</link>>
+
+:: EnemyTurn [story partial]
+/%
+        Enemy AI: 70% attack, 20% special, 10% defend.
+        Included into CombatEncounter via <<include>>.
+%/
+<<set _action to random(1, 10)>>
+<<switch _action>>
+<<case 1 2 3 4 5 6 7>>
+        <<set _enemyDmg to _enemyAtk + random(-1, 1)>>
+        <<if def _defended and _defended>>
+                <<set _enemyDmg to Math.floor(_enemyDmg / 2)>>
+                <<set _defended to false>>
+        <</if>>
+        <<set $playerHP to Math.max(0, $playerHP - _enemyDmg)>>
+        _enemyName attacks you for _enemyDmg damage.
+        <<if $playerHP lte 0>>
+                @@.defeat;You have fallen!@@
+                [[Restart|Start]]
+        <</if>>
+<<case 8 9>>
+        <<set _enemyDmg to _enemyAtk * 2>>
+        _enemyName uses a special attack for _enemyDmg damage!
+        <<set $playerHP to Math.max(0, $playerHP - _enemyDmg)>>
+<<default>>
+        _enemyName hesitates, defending itself.
+<</switch>>
+<<set _turn += 1>>

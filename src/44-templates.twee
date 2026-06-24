@@ -1,0 +1,30 @@
+:: TemplatesDemo [docs templates]
+!Template Reference
+
+Templates are registered via the <<code>>Template.add()<</code>> API in <<code>>story.js<</code>> and invoked in passage text using <<code>>?name<</code>> markup. Each time the passage renders, the template function is called fresh.
+
+!!Registered templates
+<<run console.log("Template 'greeting' exists:", Template.has("greeting"))>>
+<<run console.log("Template 'username' exists:", Template.has("username"))>>
+<<run console.log("Template 'random-num' exists:", Template.has("random-num"))>>
+
+!!Template usage — ?greeting ?username!
+?greeting ?username!
+
+!!Template returning a random number each render
+Random number: ?random-num
+
+!!Array-form template (SugarCube picks one entry at random each render)
+Random greeting: ?random-greeting
+
+!!String-form template (constant substitution)
+Story name: ?story-name
+
+(Refresh the passage to see ?random-num and ?random-greeting change.)
+
+!!Template with explicit function form (defined in story.js)
+See <<code>>story.js<</code>> for the <<code>>Template.add()<</code>> definitions — they accept either a plain string, an array of strings (one chosen at random), or a function (called with <<code>>this.name<</code>> set to the template name).
+
+<<link "Re-render this passage">><<goto "TemplatesDemo">><</link>>
+
+<<return "Return to start">>

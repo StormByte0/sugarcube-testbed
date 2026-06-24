@@ -1,0 +1,45 @@
+:: PassageReady
+/%
+	PassageReady runs before each passage renders. No output.
+	Useful for per-turn setup.
+%/
+<<if not $flags.hasKey>><<set $flags.checkedKey to false>><</if>>
+<<if visited() is 1>><<run $questLog.push("Day 1: Adventure begins.")>><</if>>
+
+:: PassageHeader
+<div class="passage-header">@@.hud-hp;HP: $playerHP/$playerMaxHP@@ | @@.hud-gold;Gold: $playerGold@@ | @@.hud-level;Lvl $playerLevel@@</div>
+
+:: PassageFooter
+<hr>
+<div class="passage-footer">Turns: <<= turns()>> | Time in passage: <<= time()>>ms | Passage: <<= passage()>></div>
+
+:: PassageDone
+/%
+	PassageDone runs after the passage is rendered and on the page.
+	Good place for DOM macros and event triggers.
+%/
+<<run console.log("[PassageDone] Displayed:", passage(), "Tags:", tags())>>
+<<if tags().includes("battle")>>
+	<<run $(document).trigger(":battlestart")>>
+<</if>>
+
+:: StoryCaption
+@@.caption-stats;
+!Stats
+Strength: $stats.strength
+Dexterity: $stats.dexterity
+Intelligence: $stats.intelligence
+Charisma: $stats.charisma
+@@
+
+@@.caption-quest;
+!Quest Log
+<<if $questLog.length is 0>>No quests yet.<<else>><<for _q range $questLog>>• _q
+<</for>><</if>>
+@@
+
+:: StoryMenu
+[[Character Sheet|CharacterSheet]]
+[[Inventory|InventoryScreen]]
+[[Achievements|Achievements]]
+[[Settings|SettingsScreen]]

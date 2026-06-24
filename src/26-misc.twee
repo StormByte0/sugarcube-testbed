@@ -1,0 +1,31 @@
+:: MiscMacros [docs misc]
+!Miscellaneous Macros
+
+!! <<code>><<done>><</code>> (v2.35.0+) — runs after incoming passage is rendered
+<<done>>
+<<replace "#done-out">>Rendered and on page.<</replace>>
+<</done>>
+@@#done-out;@@
+
+!! <<code>><<repeat>><</code>> and <<code>><<stop>><</code>>
+<<repeat 1s>>
+<<set _counter to (_counter ?? 0) + 1>>
+<<replace "#repeat-out">>Tick: _counter<</replace>>
+<<if _counter gte 5>><<stop>><</if>>
+<</repeat>>
+@@#repeat-out;@@
+
+!! <<code>><<timed>><</code>> and <<code>><<next>><</code>>
+<<timed 2s>>
+@@.timed-out;2 seconds elapsed.@@
+<<next 1s>>
+@@.timed-out;+1 more second.@@
+<<next 500ms>>
+@@.timed-out;+500ms more.@@
+<</timed>>
+
+!! <<code>><<widget>><</code>> (defined in widgets.twee — called here)
+<<hello "World">>
+<<statblock "Strength" $stats.strength>>
+
+<<return "Return to start">>

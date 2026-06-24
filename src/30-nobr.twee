@@ -1,0 +1,19 @@
+:: NobrPassage [nobr docs nobr-tag]
+!nobr-tagged Passage
+
+This entire passage has the <<code>>nobr<</code>> tag, which is equivalent to wrapping its content in <<code>><<nobr>><<silently>><</nobr>><</code>>.
+Newlines in this passage
+are collapsed into
+single spaces. Use this for passages that should
+render as a single flowing paragraph
+without manual <<code>><<nobr>><</code>> wrapping.
+
+* Lists still work — item 1
+* Item 2
+* Item 3
+
+<<if $playerHP gte 50>>Health looks good.<<else>>Health is low.<</if>>
+
+Inline macros: <<= $playerName>>, HP <<= $playerHP>>.
+
+<<return "Return to start">>

@@ -1,0 +1,313 @@
+/* ============================================================
+ * SugarCube Linter Testbed — Story Stylesheet
+ * ============================================================
+ * Targets SugarCube's built-in CSS hooks so a linter can verify
+ * stylesheet handling of: #story, #passages, .passage, link
+ * state classes, macro-generated classes, tag-scoped body
+ * styles, and UI bar selectors.
+ * ============================================================ */
+
+/* ---------- Global / document ---------- */
+html, body {
+        background: #f7f5f0;
+        color: #1f1d1c;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif;
+        font-size: 16px;
+        line-height: 1.55;
+}
+
+/* Tag-scoped body styling (SugarCube adds tags as classes to body,
+   kebab-cased, except for: debug, nobr, passage, widget, script, stylesheet, twine*) */
+body[data-tags~="forest"] {
+        background: #eef3e6;
+        color: #2a3a1a;
+}
+body[data-tags~="dungeon"] {
+        background: #1a1213;
+        color: #e0d8d8;
+}
+body[data-tags~="battle"] .passage-header {
+        background: rgba(180, 30, 30, 0.18);
+}
+
+/* ---------- Story container ---------- */
+#story {
+        margin: 0 auto;
+        max-width: 720px;
+        padding: 2em 1em;
+}
+
+#passages {
+        min-height: 60vh;
+}
+
+/* ---------- Passage ---------- */
+.passage {
+        background: #fff;
+        border-radius: 6px;
+        padding: 1.5em 2em;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.passage h1, .passage h2, .passage h3 {
+        color: #2c2640;
+        border-bottom: 1px solid #e8e3da;
+        padding-bottom: 0.25em;
+}
+
+.passage a {
+        color: #5b3a8e;
+        text-decoration: none;
+        border-bottom: 1px dotted #b8a4d6;
+}
+.passage a:hover {
+        color: #38205f;
+        border-bottom-style: solid;
+}
+
+/* Link state classes (SugarCube ships these) */
+.link-internal  { color: #5b3a8e; }
+.link-external  { color: #1d6f8a; }
+.link-broken    { color: #b00020; text-decoration: line-through; }
+.link-disabled  { color: #999; cursor: not-allowed; }
+.link-visited   { color: #6a4c93; }  /* only if Config.addVisitedLinkClass = true */
+
+/* ---------- HUD (custom classes used by PassageHeader/Footer) ---------- */
+.passage-header, .passage-footer {
+        font-size: 0.85em;
+        color: #5a544c;
+        padding: 0.4em 0.6em;
+        background: #f1ede4;
+        border-radius: 4px;
+        margin: 0.5em 0;
+}
+.hud-hp   { color: #b00020; font-weight: 600; }
+.hud-gold { color: #b8860b; font-weight: 600; }
+.hud-level{ color: #2c5282; font-weight: 600; }
+
+/* ---------- Story UI bar elements ---------- */
+#story-banner {
+        font-weight: 700;
+        color: rebeccapurple;
+}
+.story-banner-sub {
+        font-size: 0.6em;
+        color: #6a4c93;
+        font-weight: 400;
+}
+#story-title .version-badge {
+        display: inline-block;
+        margin-left: 0.4em;
+        padding: 0.05em 0.4em;
+        font-size: 0.55em;
+        background: #6a4c93;
+        color: #fff;
+        border-radius: 999px;
+        vertical-align: middle;
+}
+#story-subtitle {
+        color: #6a5a73;
+        font-style: italic;
+}
+#story-author {
+        color: #7a7480;
+        font-size: 0.85em;
+}
+#story-caption {
+        font-size: 0.85em;
+}
+.caption-stats, .caption-quest {
+        background: #f5f0e6;
+        padding: 0.5em 0.8em;
+        margin: 0.5em 0;
+        border-left: 3px solid #b8a4d6;
+}
+.caption-stats h1, .caption-quest h1 {
+        font-size: 1em;
+        margin: 0 0 0.3em 0;
+        border: none;
+}
+
+/* ---------- Story menu links ---------- */
+#menu-story a {
+        display: block;
+        padding: 0.2em 0;
+}
+
+/* ---------- Custom widget classes ---------- */
+.widget-hello {
+        background: #fff8dc;
+        border-left: 4px solid goldenrod;
+        padding: 0.5em 1em;
+        margin: 0.3em 0;
+        font-weight: 600;
+}
+.stat-block {
+        background: #eef;
+        padding: 0.3em 0.6em;
+        margin: 0.2em 0;
+        border-radius: 3px;
+}
+.widget-quote {
+        border-left: 3px solid #999;
+        color: #555;
+        font-style: italic;
+        margin: 0.5em 0;
+        padding-left: 1em;
+}
+
+/* ---------- Macro-generated classes (linter-relevant) ---------- */
+.macro-type {
+        font-family: "Courier New", monospace;
+        background: #f4f1ea;
+        padding: 0.5em 1em;
+        border-radius: 3px;
+}
+.macro-type-done {
+        background: transparent;
+}
+.macro-type-cursor::after {
+        content: "▋";
+        color: #5b3a8e;
+}
+.macro-append-insert, .macro-prepend-insert, .macro-replace-insert {
+        background: #fffacd;
+        padding: 0 2px;
+        border-radius: 2px;
+}
+
+/* ---------- Custom classes used by passages ---------- */
+.warning {
+        color: #b00020;
+        font-weight: 600;
+}
+.highlight {
+        background: yellow;
+        padding: 0 2px;
+}
+.active {
+        outline: 2px solid #5b3a8e;
+}
+.from-stylesheet-tag {
+        background: lightyellow;
+        border-left: 4px solid goldenrod;
+        padding: 0.5em 1em;
+        margin: 1em 0;
+        font-style: italic;
+}
+.debug-banner {
+        background: #ffe;
+        border: 1px dashed #cc0;
+        padding: 0.3em 0.6em;
+        font-family: monospace;
+        font-size: 0.85em;
+        color: #550;
+}
+.custom-banner {
+        background: linear-gradient(90deg, #6a4c93, #b8a4d6);
+        color: #fff;
+        padding: 0.5em 1em;
+        border-radius: 4px;
+        font-weight: 600;
+        margin: 0.5em 0;
+}
+.emoji {
+        font-size: 1.2em;
+        display: inline-block;
+        margin: 0 0.1em;
+}
+
+/* ---------- Dialog overrides ---------- */
+#ui-dialog-body {
+        max-width: 600px;
+}
+.modal-extra {
+        font-family: Georgia, serif;
+}
+
+/* ---------- Error view ---------- */
+.error-view {
+        background: #ffecec;
+        border: 1px solid #b00020;
+        color: #b00020;
+        padding: 0.5em 1em;
+        margin: 0.5em 0;
+        border-radius: 3px;
+        font-family: monospace;
+        font-size: 0.9em;
+}
+
+/* ---------- Code formatting helper (.code used in passages) ---------- */
+.code {
+        font-family: "Courier New", monospace;
+        background: #f1ede4;
+        padding: 0.05em 0.35em;
+        border-radius: 3px;
+        font-size: 0.92em;
+        color: #2c2640;
+}
+
+/* ---------- Print ---------- */
+@media print {
+        #ui-bar { display: none; }
+        #story  { max-width: 100%; }
+}
+
+/* ---------- Story narrative classes (50-story.twee, 51-combat.twee) ---------- */
+.story-note {
+        font-style: italic;
+        color: #6a5a73;
+        border-left: 3px solid #b8a4d6;
+        padding: 0.3em 0.8em;
+        margin: 0.5em 0;
+        background: #f9f6fd;
+}
+.veteran-bonus {
+        background: #fff8dc;
+        border: 1px solid goldenrod;
+        padding: 0.3em 0.8em;
+        margin: 0.3em 0;
+        font-weight: 600;
+}
+.reward {
+        color: #2a7a2a;
+        background: #eafaea;
+        padding: 0.2em 0.6em;
+        border-left: 3px solid #2a7a2a;
+        margin: 0.3em 0;
+}
+.stat-summary {
+        background: #f1ede4;
+        padding: 0.5em 1em;
+        margin: 1em 0;
+        border-radius: 4px;
+        font-size: 0.9em;
+}
+
+/* ---------- Combat classes (51-combat.twee) ---------- */
+.combat-arena {
+        background: #2a1f2e;
+        color: #f0e8f4;
+        padding: 1em 1.5em;
+        border-radius: 6px;
+        margin: 1em 0;
+}
+.combat-enemy {
+        color: #ff9b9b;
+        font-weight: 600;
+        margin-bottom: 0.5em;
+}
+.combat-player {
+        color: #9bd9ff;
+        font-weight: 600;
+}
+.victory {
+        color: #ffd700;
+        font-weight: 700;
+        font-size: 1.1em;
+}
+.defeat {
+        color: #ff4040;
+        font-weight: 700;
+        font-size: 1.1em;
+}

@@ -1,0 +1,72 @@
+:: JsApiReference [docs jsapi]
+!SugarCube JavaScript API Reference
+
+These are called from within TwineScript (inside <<code>><<run>><</code>>, <<code>><<script>><</code>>, expression macros) or from a <<code>>[script]<</code>> passage / Story JavaScript.
+
+!! <<code>>setup<</code>> — author-defined static data
+<<run console.log("Setup data:", setup.constants.PARTY_SIZE)>>
+
+!! <<code>>State<</code>> — current story state
+Active passage: <<= State.passage>>
+Turn count: <<= State.turns>>
+History length: <<= State.length>>
+$playerName via State: <<= State.variables.playerName>>
+<<run State.metadata.set("lastSeen", "JsApiReference")>>
+<<set _scratchpad to "set via TwineScript">>
+<<run State.setVar("_scratchpadJs", "set via State.setVar")>>
+
+!! <<code>>Story<</code>> — passage store
+<<if Story.has("Start")>>Story knows about Start<</if>>
+<<run console.log("Passage object:", Story.get("Start"))>>
+<<run console.log("All passages tagged 'docs':", Story.filter(p => p.tags.includes("docs")).map(p => p.name))>>
+
+!! <<code>>Config<</code>> — read configuration (set in story.js)
+Debug mode: <<= Config.debug>>
+Max history states: <<= Config.history.maxStates>>
+Max loop iterations: <<= Config.macros.maxLoopIterations>>
+
+!! <<code>>Engine<</code>> — runtime engine
+<<link "Engine.restart()">><<run Engine.restart()>><</link>>
+<<link "Engine.play('Time')">><<run Engine.play("Time")>><</link>>
+
+!! <<code>>Dialog<</code>> — modal dialog
+<<link "Open dialog">>
+<<run Dialog.create("My Dialog", "modal-extra")>>
+<<run Dialog.wiki("Hello from dialog!")>>
+<<run Dialog.open()>>
+<</link>>
+
+!! <<code>>Save<</code>> — save/load
+<<link "Save to disk">><<run Save.disk.save("linter-test.save")>><</link>>
+<<link "Browser auto save">><<run Save.browser.auto.save("Auto test")>><</link>>
+
+!! <<code>>UI<</code>> / <<code>>UIBar<</code>>
+<<link "UI.saves()">><<run UI.saves()>><</link>>
+<<link "UI.settings()">><<run UI.settings()>><</link>>
+<<link "Stow UI bar">><<run UIBar.stow()>><</link>>
+<<link "Unstow UI bar">><<run UIBar.unstow()>><</link>>
+<<link "Hide UI bar">><<run UIBar.hide()>><</link>>
+<<link "Show UI bar">><<run UIBar.show()>><</link>>
+/% NOTE: SugarCube 2.37 UIBar has no toggle() method — use stow()/unstow() instead. %/
+
+!! <<code>>SimpleAudio<</code>> — audio control
+<<link "Play click">><<run SimpleAudio.select("click").play()>><</link>>
+<<link "Stop all audio">><<run SimpleAudio.stop()>><</link>>
+/% NOTE: SugarCube 2.37 SimpleAudio has no pause() method — use stop() to halt all audio. %/
+<<link "Mute all">><<run SimpleAudio.mute()>><</link>>
+
+!! <<code>>Fullscreen<</code>>
+<<link "Toggle fullscreen">><<run Fullscreen.toggle()>><</link>>
+
+!! <<code>>Macro<</code>> — custom macro registry
+Custom macro defined: <<= Macro.has("emojify") ? "yes" : "no">>
+<<emojify "smile">>
+
+!! <<code>>Template<</code>> — <<code>>?name<</code>> markup
+Template defined: <<= Template.has("greeting") ? "yes" : "no">>
+?greeting ?username!
+
+!! Events — SugarCube fires jQuery events on <<code>>$(document)<</code>>
+<<run console.log("See story.js for event listener examples.")>>
+
+<<return "Return to start">>

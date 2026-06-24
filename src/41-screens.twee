@@ -1,0 +1,76 @@
+:: CharacterSheet [docs screen]
+!Character Sheet
+
+!!Identity
+* Name: $playerName
+* Class: <<= $playerClass ?? "Undecided">>
+* Level: $playerLevel
+
+!!Health
+* HP: $playerHP / $playerMaxHP
+* Gold: $playerGold
+
+!!Stats
+<<for _stat, _value range $stats>>
+* <<= _stat.toUpperFirst()>>: _value
+<</for>>
+
+!!Flags
+<<for _flag, _state range $flags>>
+* _flag: <<= _state ? "yes" : "no" >>
+<</for>>
+
+[[Back|Start]]
+
+:: InventoryScreen [docs screen]
+!Inventory
+
+<<if $inventory.length is 0>>
+        Your inventory is empty.
+<<else>>
+        !!Items ($inventory.length)
+        <<for _i, _item range $inventory>>
+        * [_i] _item
+        <</for>>
+<</if>>
+
+!!Add an item
+<<textbox "$newItem" "New item">>
+<<button "Add">>
+        <<run $inventory.pushUnique($newItem)>>
+        <<replace "#inv-out">>Added $newItem<</replace>>
+        <<run Engine.play("InventoryScreen")>>
+<</button>>
+@@#inv-out;@@
+
+[[Back|Start]]
+
+:: Achievements [docs screen]
+!Achievements
+
+<<set _achievements to [
+        { id: "firstStep", name: "First Step", desc: "Begin the adventure." },
+        { id: "spelunker", name: "Spelunker", desc: "Visit the dungeon." },
+        { id: "wealthy", name: "Wealthy", desc: "Amass 100 gold." }
+]>>
+
+<<for _ach range _achievements>>
+<<set _has to recall(_ach.id, false)>>
+* <<print `<span class="ach-${_ach.id}">${_has ? "[X]" : "[ ]"} ${_ach.name} &mdash; ${_ach.desc}</span>`>>
+<</for>>
+
+[[Back|Start]]
+
+:: SettingsScreen [docs screen]
+!Settings
+
+This is a custom settings passage. SugarCube also auto-builds a settings dialog via the <<code>>Setting.add*<</code>> API (see <<code>>story.js<</code>>) — accessible from the UI bar menu.
+
+[[Back|Start]]
+
+:: ResetGame [docs screen]
+!Reset Game
+
+<<link "Confirm reset">><<run Engine.restart()>><</link>>
+
+[[Cancel|Start]]

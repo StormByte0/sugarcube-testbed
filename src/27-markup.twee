@@ -1,0 +1,78 @@
+:: MarkupReference [docs markup]
+!Markup Reference
+
+!! Headings
+!h1
+!!h2
+!!!h3
+!!!!h4
+!!!!!h5
+!!!!!!h6
+
+!! Emphasis
+//italics//
+''bold''
+__underline__
+==strikethrough==
+^^superscript^^
+~~subscript~~
+
+!! Lists
+* unordered item 1
+* unordered item 2
+** nested
+* unordered item 3
+
+# ordered item 1
+# ordered item 2
+## nested
+# ordered item 3
+
+!! Blockquote
+> Single-line quote.
+>> Nested quote.
+
+!! Code
+Inline: {{{code block}}}
+Block:
+{{{
+multi
+line
+code
+}}}
+
+!! Horizontal rule
+----
+
+!! Verbatim text
+"""This //won't// be formatted as italics."""
+<nowiki>Same here — __no__ formatting.</nowiki>
+
+!! Custom styling
+@@.my-class;Text with class@@
+@@#my-id;color:blue;Text with id and style@@
+@@.block-style;
+Block-style custom formatting
+spans multiple lines
+@@
+
+!! Templates (? syntax — defined in story.js via Template.add)
+?greeting ?username!
+
+!! Naked variables
+Player: $playerName
+HP: $playerHP / $playerMaxHP
+First inventory item: $inventory[0]
+Strength stat: $stats.strength
+
+!! Comments
+/* Standard comment */
+/% TiddlyWiki markup comment %/
+<!-- HTML comment -->
+
+!! Line continuation
+This sentence \
+spans multiple \
+lines.
+
+<<return "Return to start">>

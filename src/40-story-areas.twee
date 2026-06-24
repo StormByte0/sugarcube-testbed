@@ -1,0 +1,93 @@
+:: TownSquare [town hub]
+!Town Square
+
+You stand in the bustling town square. Merchants hawk their wares, children chase each other around the fountain, and a bard tunes her lute on a nearby bench.
+
+[[Visit the Healer|Healer]] [town]
+[[Head to the Forest Edge|ForestEdge]] [forest town]
+[[Approach the Bard|Bard]] [town]
+[[Return to start menu|Start]]
+
+:: Healer [town]
+!The Healer's Hut
+
+The healer offers to restore your health for a small donation.
+
+<<if $playerGold gte 20>>
+	<<link "Pay 20 gold to fully heal">>
+		<<set $playerGold -= 20>>
+		<<set $playerHP to $playerMaxHP>>
+		<<replace ".hud-hp">>HP: $playerHP/$playerMaxHP<</replace>>
+		<<replace ".hud-gold">>Gold: $playerGold<</replace>>
+		<<replace "#healer-out">>Fully healed!<</replace>>
+	<</link>>
+<<else>>
+	You cannot afford the donation (need 20 gold; you have $playerGold).
+<</if>>
+@@#healer-out;@@
+
+[[Back to town|TownSquare]]
+
+:: Bard [town]
+!The Bard
+
+The bard introduces herself as Lila. She sings a tune that fills you with confidence.
+
+<<run $stats.charisma += 1>>
+Charisma increased by 1 (now $stats.charisma).
+
+<<set _mood to $npcs.get("bard").mood>>
+<<if _mood gte 5>>She seems very pleased to see you.<<else>>She seems neutral toward you.<</if>>
+
+[[Back to town|TownSquare]]
+
+:: ForestEdge [forest]
+!Forest Edge
+
+The trees loom overhead. Birds sing in the canopy.
+
+[img[images/forest.jpg][ForestEdge]]
+
+<<set $flags.exploredForest to true>>
+<<run $inventory.pushUnique("Forest Map")>>
+
+<<link "Search for berries">>
+	<<set _berries to random(1, 5)>>
+	<<set $playerGold += _berries>>
+	<<replace "#forest-out">>Found _berries berries worth of trinkets. New gold: $playerGold<</replace>>
+<</link>>
+@@#forest-out;@@
+
+[[Go deeper into the forest|ForestDeep]] [forest]
+[[Return to town|TownSquare]] [town]
+
+:: ForestDeep [forest]
+!Deep Forest
+
+It's darker here. You hear rustling.
+
+<<if $flags.hasKey>>
+	You unlock a hidden chest you found earlier.
+	<<run $inventory.pushUnique("Emerald")>>
+<<else>>
+	The chest is locked. You need a key.
+<</if>>
+
+[[Back to forest edge|ForestEdge]]
+
+:: DungeonEntrance [dungeon battle]
+!Dungeon Entrance
+
+A massive stone door blocks your path. Torches flicker.
+
+<<if $flags.defeatedBoss>>
+	The dungeon is quiet now.
+<<else>>
+	<<link "Approach the door">>
+		<<audio "battle" play>>
+		<<replace "#dungeon-out">>A goblin appears!<</replace>>
+	<</link>>
+<</if>>
+@@#dungeon-out;@@
+
+[[Return to start|Start]]

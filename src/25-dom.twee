@@ -1,0 +1,21 @@
+:: DomMacros [docs dom]
+!DOM Manipulation Macros
+
+These target elements already on the page; usually wrapped in <<code>><<link>><</code>>, <<code>><<done>><</code>>, or placed in <<code>>PassageDone<</code>>.
+
+@@#target;Initial content.@@
+@@.target-class;Class target.@@
+
+!! <<code>><<append>><</code>>, <<code>><<prepend>><</code>>, <<code>><<replace>><</code>>, <<code>><<remove>><</code>>, <<code>><<copy>><</code>>
+<<link "Append">><<append "#target">> +appended<</append>><</link>>
+<<link "Prepend">><<prepend "#target">>prepended+ <</prepend>><</link>>
+<<link "Replace">><<replace "#target">>replaced content<</replace>><</link>>
+<<link "Remove">><<remove ".target-class">><</link>>
+<<link "Copy">><<copy "#target">><</link>>
+
+!! <<code>><<addclass>><</code>>, <<code>><<removeclass>><</code>>, <<code>><<toggleclass>><</code>>
+<<link "Add .highlight">><<addclass "#target" "highlight">><</link>>
+<<link "Remove .highlight">><<removeclass "#target" "highlight">><</link>>
+<<link "Toggle .active">><<toggleclass "#target" "active">><</link>>
+
+<<return "Return to start">>
