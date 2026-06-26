@@ -2,49 +2,51 @@
 !TwineScript Operators
 
 !! Assignment
-<<set $a to 5>>         <<code>>to<</code>>
-<<set $a = 6>>          JS <<code>>=<</code>>
-<<set $a += 1>>         <<code>>+=<</code>>
-<<set $a -= 1>>         <<code>>-=<</code>>
-<<set $a *= 2>>         <<code>>*=<</code>>
-<<set $a /= 2>>         <<code>>/=<</code>>
-<<set $a %= 3>>         <<code>>%=<</code>>
-<<set $a++>>            <<code>>++<</code>> (post-increment)
-<<set ++$a>>            <<code>>++<</code>> (pre-increment)
-<<set $a-->>            <<code>>--<</code>>
-
+<<set $a to 5>>   <<code>>$a to 5<</code>>               <<=$a>>
+<<set $a = 6>> JS <<code>>$a = 6<</code>>                <<=$a>>
+<<set $a += 1>>   <<code>>$a += 1<</code>>               <<=$a>>
+<<set $a -= 1>>   <<code>>$a -= 1<</code>>               <<=$a>>
+<<set $a *= 2>>   <<code>>$a *= 2<</code>>               <<=$a>>
+<<set $a /= 2>>   <<code>>$a /= 2<</code>>               <<=$a>>
+<<set $a %= 3>>   <<code>>$a %= 3<</code>>               <<=$a>>
+<<set $a++>>      <<code>>$a++<</code>> (post-increment) <<=$a>>
+<<set ++$a>>      <<code>>++$a<</code>> (pre-increment)  <<=$a>>
+<<set $a-->>      <<code>>$a--<</code>>                  <<=$a>>
+<<set $a to 5>>   <<code>> $a to 5<</code>>              <<=$a>>
 !! Comparison (TwineScript)
 /% Each operator is shown as a literal code sample using the {{{...}}} builtin
    inline-code markup, so the <<if>> tags are NOT invoked. The custom <<code>>
    macro would also work; we use {{{...}}} here for linter coverage of both. %/
-{{{<<if $a is 5>>}}}          {{{is}}} (strict equal)
-{{{<<if $a isnot 5>>}}}       {{{isnot}}}
-{{{<<if $a eq 5>>}}}          {{{eq}}} (loose)
-{{{<<if $a neq 5>>}}}         {{{neq}}}
-{{{<<if $a gt 5>>}}}          {{{gt}}}
-{{{<<if $a gte 5>>}}}         {{{gte}}}
-{{{<<if $a lt 5>>}}}          {{{lt}}}
-{{{<<if $a lte 5>>}}}         {{{lte}}}
+<<if $a is 5>>       {{{$a is 5}}} (strict equal) <</if>>
+<<if $a isnot 6>>    {{{$a isnot 6}}}             <</if>>
+<<if $a eq 5>>       {{{$a eq 5}}} (loose)        <</if>>
+<<if $a neq 6>>      {{{$a neq 6}}}               <</if>>
+<<if $a gt 4>>       {{{$a gt 4}}}                <</if>>
+<<if $a gte 5>>      {{{ $a gte 5}}}              <</if>>
+<<if $a lt 6>>       {{{$a lt 6}}}                <</if>>
+<<if $a lte 5>>      {{{$a lte 5}}}               <</if>>
 
 !! Comparison (JS — also valid inside {{{<<if>>}}})
-{{{<<if $a === 5>>}}}
-{{{<<if $a !== 5>>}}}
-{{{<<if $a > 5>>}}}
-{{{<<if $a >= 5>>}}}
-{{{<<if $a < 5>>}}}
-{{{<<if $a <= 5>>}}}
+<<if $a === 5>>   {{{a === 5}}}  <</if>>
+<<if $a !== '5'>> {{{a !=='5'}}} <</if>>
+<<if $a > 4>>     {{{a > 4}}}    <</if>>
+<<if $a >= 5>>    {{{a >= 5}}}   <</if>>
+<<if $a < 6>>     {{{a < 6}}}    <</if>>
+<<if $a <= 5>>    {{{a <= 5}}}   <</if>>
 
 !! Logical
-{{{<<if $a and $b>>}}}        {{{and}}}
-{{{<<if $a or $b>>}}}         {{{or}}}
-{{{<<if not $a>>}}}           {{{not}}}
-{{{<<if $a && $b>>}}}         JS {{{&&}}}
-{{{<<if $a || $b>>}}}         JS {{{||}}}
-{{{<<if !$a>>}}}              JS {{{!}}}
+<<set $b to true>>
+<<set $c to false>>
+<<if $b and !$c>>    {{{b and !c}}}          <</if>>
+<<if $b or $c>>      {{{b or c}}}            <</if>>
+<<if not $c>>        {{{not c}}}             <</if>>
+<<if $b && !$c>>  JS {{{&&}}} <<=$a && $b>>  <</if>>
+<<if $b || $c>>   JS {{{||}}} <<=$a || $b>>  <</if>>
+<<if !$c>>        JS {{{!c}}}                <</if>>
 
 !! Defined checks
-{{{<<if def $a>>}}}           {{{def}}} (defined)
-{{{<<if ndef $missing>>}}}    {{{ndef}}} (not defined)
+<<if def $a>>           {{{def $a}}} (defined)              <</if>>
+<<if ndef $missing>>    {{{ndef $missing}}} (not defined)   <</if>>
 
 !! Arithmetic
 <<= 5 + 2>>             addition
