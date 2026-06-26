@@ -1,34 +1,34 @@
 :: DisplayMacros [docs display]
 !Display & Content Macros
 
-!! <<code>><<print>><</code>>, <<code>><<=>><</code>>, <<code>><<->><</code>>
+!! {{{<<print>>}}}, {{{<<=>>}}}, {{{<<->>}}}
 <<print "Hello, " + $playerName>>
 <<= 2 + 2>>
 <<- "<b>Escaped</b> HTML shows literally">>
 
-!! <<code>><<include>><</code>>
+!! {{{<<include>>}}}
 <<include "IncludedSnippet">>
 <<include "IncludedSnippet" "span">>
 
-!! <<code>><<nobr>><</code>>
+!! {{{<<nobr>>}}}
 <<nobr>>
 This block collapses
 newlines into
 single spaces.
 <</nobr>>
 
-!! <<code>><<silent>><</code>>
+!! {{{<<silent>>}}}
 <<silent>>
 <<set _hiddenFlag to true>>
 <</silent>>
 (Silent block above produced no output.)
 
-!! <<code>><<type>><</code>>
+!! {{{<<type>>}}}
 <<type 40ms>>This text types out like a typewriter.<</type>>
 
 <<type 20ms start 1s element "div" class "fancy-type" keep>>Delayed typewriter, kept on completion.<</type>>
 
-!! <<code>><<do>><</code>> / <<code>><<redo>><</code>> (v2.37.0)
+!! {{{<<do>>}}} / {{{<<redo>>}}} (v2.37.0)
 /%
         <<do>> is a container macro (tags:null) that wraps content in a redo-targetable
         element. Syntax: <<do [tag "name"] [element "name"]>>...<</do>>
@@ -42,7 +42,7 @@ single spaces.
 <<link "Return" "Start">><</link>>
 
 :: IncludedSnippet [snippet]
-This text comes from another passage via <<code>><<include>><</code>>.
+This text comes from another passage via {{{<<include>>}}}.
 
 :: Time
 The current time in passage is <<= time()>>ms.

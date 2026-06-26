@@ -64,7 +64,7 @@
 :: SettingsScreen [docs screen]
 !Settings
 
-This is a custom settings passage. SugarCube also auto-builds a settings dialog via the <<code>>Setting.add*<</code>> API (see <<code>>story.js<</code>>) — accessible from the UI bar menu.
+This is a custom settings passage. SugarCube also auto-builds a settings dialog via the {{{Setting.add*}}} API (see {{{story.js}}}) — accessible from the UI bar menu.
 
 [[Back|Start]]
 

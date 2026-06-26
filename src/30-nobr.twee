@@ -1,12 +1,12 @@
 :: NobrPassage [nobr docs nobr-tag]
 !nobr-tagged Passage
 
-This entire passage has the <<code>>nobr<</code>> tag, which is equivalent to wrapping its content in <<code>><<nobr>><<silently>><</nobr>><</code>>.
+This entire passage has the {{{nobr}}} tag, which is equivalent to wrapping its content in {{{<<nobr>><<silently>><</nobr>>}}}.
 Newlines in this passage
 are collapsed into
 single spaces. Use this for passages that should
 render as a single flowing paragraph
-without manual <<code>><<nobr>><</code>> wrapping.
+without manual {{{<<nobr>>}}} wrapping.
 
 * Lists still work — item 1
 * Item 2

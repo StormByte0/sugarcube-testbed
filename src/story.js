@@ -147,19 +147,19 @@ Macro.add("banner", {
 });
 
 /*
- * <<code>>...<</code>> — inline code styling macro.
+ * {{{...}}} — inline code styling macro.
  *
- * Used throughout the testbed to wrap macro/symbol names (e.g. <<code>><<set>><</code>>)
+ * Used throughout the testbed to wrap macro/symbol names (e.g. {{{<<set>>}}})
  * for monospaced display. The payload contents are output as escaped text inside a
  * <span class="code"> so that literal `<<set>>` etc. show up as text rather than being
  * invoked as macros. SugarCube's container-macro parser hands us the raw source text
- * between `<<code>>` and `<</code>>`, so nested `<<...>>` sequences are NOT invoked.
+ * between `{{{` and `}}}`, so nested `<<...>>` sequences are NOT invoked.
  */
 Macro.add("code", {
         tags: null,
         handler() {
                 if (this.payload.length === 0) {
-                        return; /* empty <<code>><</code>> */
+                        return; /* empty {{{}}} */
                 }
                 const text = this.payload[0].contents;
                 jQuery(document.createElement("span"))

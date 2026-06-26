@@ -1,7 +1,7 @@
 :: TemplatesDemo [docs templates]
 !Template Reference
 
-Templates are registered via the <<code>>Template.add()<</code>> API in <<code>>story.js<</code>> and invoked in passage text using <<code>>?name<</code>> markup. Each time the passage renders, the template function is called fresh.
+Templates are registered via the {{{Template.add()}}} API in {{{story.js}}} and invoked in passage text using {{{?name}}} markup. Each time the passage renders, the template function is called fresh.
 
 !!Registered templates
 <<run console.log("Template 'greeting' exists:", Template.has("greeting"))>>
@@ -23,7 +23,7 @@ Story name: ?story-name
 (Refresh the passage to see ?random-num and ?random-greeting change.)
 
 !!Template with explicit function form (defined in story.js)
-See <<code>>story.js<</code>> for the <<code>>Template.add()<</code>> definitions — they accept either a plain string, an array of strings (one chosen at random), or a function (called with <<code>>this.name<</code>> set to the template name).
+See {{{story.js}}} for the {{{Template.add()}}} definitions — they accept either a plain string, an array of strings (one chosen at random), or a function (called with {{{this.name}}} set to the template name).
 
 <<link "Re-render this passage">><<goto "TemplatesDemo">><</link>>
 

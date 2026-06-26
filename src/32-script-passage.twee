@@ -32,7 +32,7 @@ $(document).one(":storyready", function () {
 :: ScriptTagPassage [docs script-tag]
 !Script-Tagged Passage Demo
 
-The <<code>>StoryScriptTagDemo<</code>> passage in this file is tagged <<code>>[script]<</code>>. Its contents are pure JavaScript, executed at startup. In a real Tweego project you would normally put this in a <<code>>.js<</code>> file (see <<code>>story.js<</code>>), but the <<code>>[script]<</code>> tag is supported for compatibility with Twine 1 / Twee v1 workflows.
+The {{{StoryScriptTagDemo}}} passage in this file is tagged {{{[script]}}}. Its contents are pure JavaScript, executed at startup. In a real Tweego project you would normally put this in a {{{.js}}} file (see {{{story.js}}}), but the {{{[script]}}} tag is supported for compatibility with Twine 1 / Twee v1 workflows.
 
 <<run console.log("Greet:", setup.greetFromScript($playerName))>>
 

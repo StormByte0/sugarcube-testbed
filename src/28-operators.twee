@@ -2,20 +2,20 @@
 !TwineScript Operators
 
 !! Assignment
-<<set $a to 5>>   <<code>>$a to 5<</code>>               <<=$a>>
-<<set $a = 6>> JS <<code>>$a = 6<</code>>                <<=$a>>
-<<set $a += 1>>   <<code>>$a += 1<</code>>               <<=$a>>
-<<set $a -= 1>>   <<code>>$a -= 1<</code>>               <<=$a>>
-<<set $a *= 2>>   <<code>>$a *= 2<</code>>               <<=$a>>
-<<set $a /= 2>>   <<code>>$a /= 2<</code>>               <<=$a>>
-<<set $a %= 3>>   <<code>>$a %= 3<</code>>               <<=$a>>
-<<set $a++>>      <<code>>$a++<</code>> (post-increment) <<=$a>>
-<<set ++$a>>      <<code>>++$a<</code>> (pre-increment)  <<=$a>>
-<<set $a-->>      <<code>>$a--<</code>>                  <<=$a>>
-<<set $a to 5>>   <<code>> $a to 5<</code>>              <<=$a>>
+<<set $a to 5>>   {{{$a to 5}}}               <<=$a>>
+<<set $a = 6>> JS {{{$a = 6}}}                <<=$a>>
+<<set $a += 1>>   {{{$a += 1}}}               <<=$a>>
+<<set $a -= 1>>   {{{$a -= 1}}}               <<=$a>>
+<<set $a *= 2>>   {{{$a *= 2}}}               <<=$a>>
+<<set $a /= 2>>   {{{$a /= 2}}}               <<=$a>>
+<<set $a %= 3>>   {{{$a %= 3}}}               <<=$a>>
+<<set $a++>>      {{{$a++}}} (post-increment) <<=$a>>
+<<set ++$a>>      {{{++$a}}} (pre-increment)  <<=$a>>
+<<set $a-->>      {{{$a--}}}                  <<=$a>>
+<<set $a to 5>>   {{{ $a to 5}}}              <<=$a>>
 !! Comparison (TwineScript)
 /% Each operator is shown as a literal code sample using the {{{...}}} builtin
-   inline-code markup, so the <<if>> tags are NOT invoked. The custom <<code>>
+   inline-code markup, so the <<if>> tags are NOT invoked. The custom {{{
    macro would also work; we use {{{...}}} here for linter coverage of both. %/
 <<if $a is 5>>       {{{$a is 5}}} (strict equal) <</if>>
 <<if $a isnot 6>>    {{{$a isnot 6}}}             <</if>>

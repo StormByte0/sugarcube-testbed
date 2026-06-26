@@ -1,7 +1,7 @@
 :: InteractiveMacros [docs interactive]
 !Interactive Macros
 
-!! <<code>><<link>><</code>> and <<code>><<button>><</code>>
+!! {{{<<link>>}}} and {{{<<button>>}}}
 <<link "Plain link, no target">><<set $flags.clickedLink to true>><<replace "#link-out">>Link clicked!<</replace>><</link>>
 @@#link-out;@@
 
@@ -12,27 +12,27 @@
 
 <<button "[+ Gold]">><<set $playerGold++>><<replace ".hud-gold">>Gold: $playerGold<</replace>><</button>>
 
-!! <<code>><<linkappend>><</code>>, <<code>><<linkprepend>><</code>>, <<code>><<linkreplace>><</code>>
+!! {{{<<linkappend>>}}}, {{{<<linkprepend>>}}}, {{{<<linkreplace>>}}}
 You see a <<linkappend "cupboard" t8n>>, inside which is a small key<</linkappend>>.
 
 A <<linkprepend "robot" t8n>>GIANT <</linkprepend>> blocks the path.
 
 <<linkreplace "cupcake" t8n>>a key lime pie<</linkreplace>>
 
-!! <<code>><<textbox>><</code>>, <<code>><<textarea>><</code>>, <<code>><<numberbox>><</code>>
+!! {{{<<textbox>>}}}, {{{<<textarea>>}}}, {{{<<numberbox>>}}}
 Enter your name: <<textbox "$playerName" $playerName "Time" autofocus>>
 
 Notes: <<textarea "$notes" "Type here..." >>
 
 Wager: <<numberbox "$wager" 50 "Time">>
 
-!! <<code>><<checkbox>><</code>>, <<code>><<radiobutton>><</code>>
+!! {{{<<checkbox>>}}}, {{{<<radiobutton>>}}}
 <<checkbox "$flags.hasMap" false true autocheck>> I have a map.
 <<radiobutton "$playerClass" "warrior" autocheck>> Warrior
 <<radiobutton "$playerClass" "mage" autocheck>> Mage
 <<radiobutton "$playerClass" "rogue" autocheck>> Rogue
 
-!! <<code>><<listbox>><</code>> with <<code>><<option>><</code>>
+!! {{{<<listbox>>}}} with {{{<<option>>}}}
 Choose a weapon:
 <<listbox "$weapon" autoselect>>
 <<option "Sword" 10>>
@@ -40,7 +40,7 @@ Choose a weapon:
 <<option "Staff" 8>>
 <</listbox>>
 
-!! <<code>><<cycle>><</code>> with <<code>><<optionsfrom>><</code>>
+!! {{{<<cycle>>}}} with {{{<<optionsfrom>>}}}
 <<set _pieOptions to ["Apple", "Cherry", "Pecan"]>>
 Choose a pie:
 <<cycle "$pie" once>>

@@ -215,9 +215,9 @@ All 5 control kinds exercised: `Setting.addHeader`, `Setting.addToggle`, `Settin
 
 > **Note:** A previous version of this README mentioned `Setting.addText`. That method does **not** exist in SugarCube 2.37.0 — only `addHeader`, `addToggle`, `addList`, `addRange`, and `addValue` are available. To display static text in the settings dialog, use `Setting.addHeader(name, desc)`.
 
-### Custom `<<code>>` macro (defined in story.js)
+### Custom `{{{` macro (defined in story.js)
 
-The testbed uses `<<code>>...<</code>>` throughout (150 occurrences across 17 files) to wrap macro names like `<<set>>`, `<<if>>`, etc. for monospaced display. This macro is **defined in `story.js`** as a container macro that outputs its raw payload as escaped text inside a `<span class="code">`. SugarCube's container-macro parser hands us the raw source text between `<<code>>` and `<</code>>`, so nested `<<...>>` sequences are NOT invoked as macros.
+The testbed uses `{{{...}}}` throughout (150 occurrences across 17 files) to wrap macro names like `<<set>>`, `<<if>>`, etc. for monospaced display. This macro is **defined in `story.js`** as a container macro that outputs its raw payload as escaped text inside a `<span class="code">`. SugarCube's container-macro parser hands us the raw source text between `{{{` and `}}}`, so nested `<<...>>` sequences are NOT invoked as macros.
 
 ### CSS selectors covered (story.css)
 

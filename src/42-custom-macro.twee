@@ -1,7 +1,7 @@
 :: CustomMacroDemo [docs custom-macro]
 !Custom Macro Demo
 
-The macro <<code>><<emojify>><</code>> is defined in <<code>>story.js<</code>> via <<code>>Macro.add()<</code>>.
+The macro {{{<<emojify>>}}} is defined in {{{story.js}}} via {{{Macro.add()}}}.
 
 <<emojify "smile">>
 <<emojify "heart">>

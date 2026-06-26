@@ -32,7 +32,7 @@ body[data-tags~="dungeon"] {
 :: StylesheetTagPassage [docs stylesheet-tag]
 !Stylesheet-Tagged Passage Demo
 
-The <<code>>StoryStylesheetTagDemo<</code>> passage is tagged <<code>>[stylesheet]<</code>>. Its CSS is bundled into the story at startup. In Tweego you would normally just drop a <<code>>.css<</code>> file in <<code>>src/<</code>> (see <<code>>story.css<</code>>), but the tag is supported for compatibility.
+The {{{StoryStylesheetTagDemo}}} passage is tagged {{{[stylesheet]}}}. Its CSS is bundled into the story at startup. In Tweego you would normally just drop a {{{.css}}} file in {{{src/}}} (see {{{story.css}}}), but the tag is supported for compatibility.
 
 @@.from-stylesheet-tag;This box is styled by CSS from a [stylesheet]-tagged passage.@@
 

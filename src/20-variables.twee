@@ -1,6 +1,6 @@
 :: VariablesMacros [docs variables]
 !Variables & Scripting Macros
-!! <<code>><<set>><</code>>, <<code>><<unset>><</code>>, <<code>><<capture>><</code>>, <<code>><<run>><</code>>
+!! {{{<<set>>}}}, {{{<<unset>>}}}, {{{<<capture>>}}}, {{{<<run>>}}}
 
 <<set $playerGold to 50>>
 <<set $playerGold += 10>>

@@ -1,19 +1,19 @@
 :: NavigationMacros [docs navigation]
 !Navigation Macros
 
-!! <<code>><<back>><</code>> — undo history
+!! {{{<<back>>}}} — undo history
 <<back "Back one step">>
 
-!! <<code>><<return>><</code>> — forward to previously visited
+!! {{{<<return>>}}} — forward to previously visited
 <<return "Return to start">>
 
-!! <<code>><<goto>><</code>> — immediate forward
+!! {{{<<goto>>}}} — immediate forward
 <<link "Trigger a goto">><<goto "Time">><</link>>
 
-!! <<code>><<actions>><</code>> (deprecated v2.37.0 — included for linter coverage)
+!! {{{<<actions>>}}} (deprecated v2.37.0 — included for linter coverage)
 <<actions "Time" "Start">>
 
-!! <<code>><<choice>><</code>> (deprecated v2.37.0 — included for linter coverage)
+!! {{{<<choice>>}}} (deprecated v2.37.0 — included for linter coverage)
 <<choice "Time" "Make the choice">>
 
 !! Link forms (markup, not macros, but linter-relevant)

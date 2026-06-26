@@ -37,27 +37,27 @@
 :: WidgetShowcase [docs widgets]
 !Widget Showcase
 
-Widgets are defined in the <<code>>Widgets<</code>> passage (tagged <<code>>[widget]<</code>>).
+Widgets are defined in the {{{Widgets}}} passage (tagged {{{[widget]}}}).
 
-!! <<code>><<widget hello>><</code>> (no args)
+!! {{{<<widget hello>>}}} (no args)
 <<hello "World">>
 <<hello $playerName>>
 
-!! <<code>><<widget statblock>><</code>> (positional args)
+!! {{{<<widget statblock>>}}} (positional args)
 <<statblock "Strength" $stats.strength>>
 <<statblock "Dexterity" $stats.dexterity>>
 <<statblock "Intelligence" $stats.intelligence>>
 
-!! <<code>><<widget quote container>><</code>> (container widget — uses <<code>>_contents<</code>>)
+!! {{{<<widget quote container>>}}} (container widget — uses {{{_contents}}})
 <<quote>>
 To be, or not to be, that is the question.
 — William Shakespeare
 <</quote>>
 
-!! <<code>><<widget randomcolor>><</code>>
+!! {{{<<widget randomcolor>>}}}
 Random color: <<randomcolor>>
 
-!! <<code>><<widget ifhasinv>><</code>>
+!! {{{<<widget ifhasinv>>}}}
 <<ifhasinv "Lantern">>
 <<ifhasinv "Dragon Scale">>
 
